@@ -12,4 +12,6 @@ pip install pywt
 
 `pywt` implemented the wavelet transform used in the algorithm.
 
+And you should install `svm` toolkit based on your system.
+
 Golang version is under development.

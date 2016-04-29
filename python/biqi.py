@@ -41,14 +41,8 @@ def wavedec2(arr):
 
 def downscale(arr):
     h, w = arr.shape
-    #newarr = numpy.zeros((int(h/2), int(w/2)))
-    #for i in xrange(h):
-    #    for j in xrange(w):
-    #        if i % 2 == 0 and j % 2 == 0:
-    #            newarr[int(i/2)-1, int(j/2)-1] = arr[i, j]
     newshape = (int(h/2), int(w/2))
     newarr = numpy.resize(arr, newshape)
-
     return newarr
 
 def jpg_quality(arr):
@@ -57,7 +51,6 @@ def jpg_quality(arr):
         return -2.0
 
     arr = arr.astype(numpy.float)
-    print arr.shape
 
     d_h = arr[:, 1:] - arr[:, :n-1]
     d_arr = numpy.zeros((m, int(n/8)-1), dtype=numpy.float)
@@ -136,7 +129,6 @@ def run(arr):
     h_curr = h.flatten('F')
     v_curr = v.flatten('F')
     d_curr = d.flatten('F')
-
 
     mu_horz.append(h_curr.mean())
     mu_vert.append(v_curr.mean())
@@ -253,14 +245,12 @@ def run(arr):
     f.readline()
     line = f.readline()
     scores = [jp2k_score, jpeg_score, wn_score, blur_score, ff_score]
-    print scores
     probs = [float(i) for i in line.split()[1:]]
-    print probs
     f.close()
     sumprobs = probs[0] + probs[2] + probs[3] + probs[4]
     newprobs = [probs[0] / sumprobs, probs[2] / sumprobs, probs[3] / sumprobs, probs[4] / sumprobs]
     result = jp2k_score * newprobs[0] + wn_score * newprobs[2] + blur_score * newprobs[3] + ff_score * newprobs[4]
-    print result
+    return result
 
 
 if __name__ == "__main__":
